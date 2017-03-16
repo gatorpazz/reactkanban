@@ -12,7 +12,7 @@ export default ({editing, value, onEdit, className, ...props}) => {
 
   return <span className={classnames('value', className)} {...props}>
     {value}
-  </span>j
+  </span>
 }
 
 class Edit extends React.Component {
