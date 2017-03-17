@@ -1,20 +1,10 @@
-import uuid from 'uuid'
 import NoteActions from '../actions/NoteActions';
 
 export default class NoteStore {
   constructor() {
     this.bindActions(NoteActions);
 
-    this.notes = [
-      {
-        id: uuid.v4(),
-        task: 'Learn React'
-      },
-      {
-        id: uuid.v4(),
-        task: 'Do laundry'
-      }
-    ];
+    this.notes = [];
   }
   create(note) {
     this.setState({
@@ -22,9 +12,19 @@ export default class NoteStore {
     });
   }
   update(updatedNote) {
-    console.log('update note', updatedNote);
+    this.setState({
+      notes: this.notes.map(note => {
+        if(note.id === updatedNote.id) {
+          return Object.assign({}, note, updatedNote);
+        }
+
+        return note;
+      })
+    });
   }
   delete(id) {
-    console.log('delete note', id);
+    this.setState({
+      notes: this.notes.filter(note => note.id !== id)
+    });
   }
 }
